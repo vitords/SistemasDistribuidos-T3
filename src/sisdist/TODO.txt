@@ -1,0 +1,6 @@
+
+TODO:
+Dá bind no RMI Registry com o nome da janela (nome deve ser único)
+Dá um send pro grupo multicast com o nome registardo no RMI
+Quadros (peers) que receberem a mensagem dão lookup no Registry pelo nome recebido
+    e adicionam o quadro na lista de quadros.
