@@ -6,6 +6,7 @@ package sisdist;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -141,7 +142,7 @@ public class QuadroGUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             if(!jTextField1.getText().equals("")) {
-                quadro.setAviso(jTextField1.getText());
+                quadro.setAviso(tfNome.getText()+" ("+new SimpleDateFormat("HH:mm").format(new java.util.Date())+"): " + jTextField1.getText());
                 jTextField1.setText("");
             }            
         } catch (RemoteException ex) {

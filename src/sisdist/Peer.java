@@ -114,6 +114,7 @@ public class Peer extends UnicastRemoteObject implements IQuadroAviso {
         try {
             // Desregistra no RMI
             Naming.unbind(peerName);
+            Peer.unexportObject(this, true);
         } catch (RemoteException ex) {
             System.out.println("Remote Exception: " + ex.getMessage());
         } catch (NotBoundException ex) {
@@ -143,14 +144,16 @@ public class Peer extends UnicastRemoteObject implements IQuadroAviso {
             System.out.println("Recebeu nome \"" + nome + "\".");
             
             IQuadroAviso quadro = (IQuadroAviso) Naming.lookup(RMI_HOST + nome);
-            // TODO: Verificar se quadro existe e já não está na lista de quadros
+            
             for(IQuadroAviso q : quadros) {
                 if(q.equals(quadro)) {
                     System.out.println("Quadro \"" + nome + "\" já cadastrado.");
                     return;
                 }
             }
-            quadros.add(quadro);
+            if(!nome.equals(peerName)) {
+                quadros.add(quadro);
+            }
             quadro.setQuadro(this);
         } catch (NotBoundException ex) {
             System.out.println("Not Bound Exception: " + ex.getMessage());
