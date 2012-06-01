@@ -145,8 +145,8 @@ public class QuadroAvisos extends UnicastRemoteObject implements IQuadroAvisos {
         try {
             String nome = new String(pacote.getData(), 0, pacote.getLength());
             System.out.println("Recebeu nome \"" + nome + "\".");
-            // Procura no RMI pela referencia do quadro com o nome recebido
-            IQuadroAvisos quadro = (IQuadroAvisos) Naming.lookup(RMI_HOST + nome);
+            // Procura no RMI Registry pela referencia do quadro com o nome recebido
+            IQuadroAvisos quadro = (IQuadroAvisos) Naming.lookup("rmi://" + pacote.getAddress().getHostAddress() + ":1099/" + nome);
             // Se o quadro já existe, não adiciona
             for(IQuadroAvisos q : quadros) {
                 if(q.equals(quadro)) {
