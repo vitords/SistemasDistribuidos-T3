@@ -142,7 +142,10 @@ public class QuadroGUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             if(!jTextField1.getText().equals("")) {
-                quadro.setAviso(tfNome.getText()+" ("+new SimpleDateFormat("HH:mm").format(new java.util.Date())+"): " + jTextField1.getText());
+                if(tfNome.getText().equals("")) {
+                    tfNome.setText("Anonimo");
+                }
+                quadro.setAviso(tfNome.getText()+ " (" + new SimpleDateFormat("HH:mm").format(new java.util.Date()) + "): " + jTextField1.getText());
                 jTextField1.setText("");
             }            
         } catch (RemoteException ex) {
@@ -159,13 +162,16 @@ public class QuadroGUI extends javax.swing.JFrame {
             try {
                 quadro.registrar(tfGrupo.getText(), Integer.parseInt(tfPorta.getText()));
                 jToggleButton1.setText("Sair");
+                tfNome.setEnabled(false);
+                tfGrupo.setEnabled(false);
+                tfPorta.setEnabled(false);
             } catch (IOException ex) {
                 System.out.println("Erro ao entrar no grupo: " + ex.getMessage());
             }
         } else {
             try {
                 quadro.desregistrar();
-                jToggleButton1.setText("Entrar");
+                this.dispose();
             } catch (IOException ex) {
                 System.out.println("Erro ao sair do grupo: " + ex.getMessage());
             }

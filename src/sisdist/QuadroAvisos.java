@@ -15,6 +15,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -78,7 +79,13 @@ public class QuadroAvisos extends UnicastRemoteObject implements IQuadroAvisos {
         this.mcastGroup = grupo;
         this.mcastPort = porta;
         this.peerName = janela.getNome();
-        
+        // Se o usuário não pôs nome, é anônimo
+        if(peerName.equals("")) {
+            peerName = "Anonimo";
+        }
+        // Retira espaços do nome, gera um timestamp e concatena com o nome para formar uma ID única
+        this.peerName = peerName.replaceAll("\\s","");
+        this.peerName = peerName.concat(new SimpleDateFormat("HHmmss").format(new java.util.Date()));
         // Tenta criar um RMI Registry. Se já existe, ignora.
         try {
             LocateRegistry.createRegistry(1099);
@@ -142,6 +149,7 @@ public class QuadroAvisos extends UnicastRemoteObject implements IQuadroAvisos {
         try {
             String nome = new String(pacote.getData(), 0, pacote.getLength());
             System.out.println("Recebeu nome \"" + nome + "\".");
+            
             
             IQuadroAvisos quadro = (IQuadroAvisos) Naming.lookup(RMI_HOST + nome);
             
