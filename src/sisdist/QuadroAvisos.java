@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sisdist;
 
 import java.io.IOException;
@@ -21,7 +18,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author Vitor
+ * @author Vitor, Davi
  */
 public class QuadroAvisos extends UnicastRemoteObject implements IQuadroAvisos {
     
@@ -149,19 +146,20 @@ public class QuadroAvisos extends UnicastRemoteObject implements IQuadroAvisos {
         try {
             String nome = new String(pacote.getData(), 0, pacote.getLength());
             System.out.println("Recebeu nome \"" + nome + "\".");
-            
-            
+            // Procura no RMI pela referencia do quadro com o nome recebido
             IQuadroAvisos quadro = (IQuadroAvisos) Naming.lookup(RMI_HOST + nome);
-            
+            // Se o quadro já existe, não adiciona
             for(IQuadroAvisos q : quadros) {
                 if(q.equals(quadro)) {
                     System.out.println("Quadro \"" + nome + "\" já cadastrado.");
                     return;
                 }
             }
+            // Evita que um quadro adicione ele mesmo
             if(!nome.equals(peerName)) {
                 quadros.add(quadro);
             }
+            // Se adiciona no quadro remoto
             quadro.setQuadro(this);
         } catch (NotBoundException ex) {
             System.out.println("Not Bound Exception: " + ex.getMessage());

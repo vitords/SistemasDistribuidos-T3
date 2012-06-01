@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sisdist;
 
 import java.rmi.Remote;
@@ -9,7 +6,7 @@ import java.rmi.RemoteException;
 
 /**
  *
- * @author Vitor
+ * @author Vitor, Davi
  */
 public interface IQuadroAvisos extends Remote {
     
