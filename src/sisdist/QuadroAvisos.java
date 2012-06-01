@@ -32,8 +32,7 @@ public class QuadroAvisos extends UnicastRemoteObject implements IQuadroAvisos {
     private Listener mcastListener;
     
     private ArrayList<IQuadroAvisos> quadros;
-    
-    
+
     private static final String RMI_HOST = "rmi://localhost:1099/";
     private static final int BUFFER_SIZE = 1024;
     
