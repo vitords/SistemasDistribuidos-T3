@@ -19,12 +19,12 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class QuadroGUI extends javax.swing.JFrame {
 
-    private static Peer quadro;
+    private static QuadroAvisos quadro;
     private DefaultListModel<String> listModel;
     /**
      * Creates new form QuadroAvisosJFrame
      */
-    public QuadroGUI(Peer quadro) {
+    public QuadroGUI(QuadroAvisos quadro) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {
